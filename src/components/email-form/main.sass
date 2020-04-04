@@ -1,0 +1,36 @@
+@import "mixins"
+@import "variables"
+
+.email-form
+  @include flex()
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2)
+  border-radius: $border-radius
+  width: 540px
+
+  &__header
+    @include flex()
+    border-radius: $border-radius $border-radius 0 0
+    background: $content-background
+    padding: 32px 50px
+
+  &__footer
+    padding: 32px 50px
+
+    button
+      background: #4262FF
+      border-radius: 6px
+      cursor: pointer
+      padding: 8px 16px
+      font-size: 14px
+      line-height: 24px
+      font-weight: 300
+      text-align: center
+      color: $white
+
+.email-form-header
+  &__title
+    font-size: 20px
+    line-height: 27px
+    font-weight: normal
+    margin: 0
+    margin-botton: 24px
