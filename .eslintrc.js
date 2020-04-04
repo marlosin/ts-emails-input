@@ -10,4 +10,9 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
   ],
+  "overrides": [
+    {
+      "files": [ "src/**/*.ts" ],
+    }
+  ],
 };
