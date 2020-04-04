@@ -4,6 +4,7 @@ import typescript from '@rollup/plugin-typescript'
 import { terser } from 'rollup-plugin-terser'
 import resolve from '@rollup/plugin-node-resolve'
 import sass from 'rollup-plugin-sass'
+import html from 'rollup-plugin-html'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -22,7 +23,15 @@ export default {
     }),
     sass({
       output: 'dist/bundle.css',
+      options: {
+        includePaths: [
+          'src/assets/styles'
+        ],
+      },
     }),
+    html({
+			include: 'src/**/*.html',
+		}),
     commonjs(),
     typescript(),
 
