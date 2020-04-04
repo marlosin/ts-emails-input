@@ -1,6 +1,6 @@
 import './main.sass'
-import template from './template.html'
 import { createElement } from 'utils/dom'
+import { InputEmail } from 'components/input-email';
 
 export class EmailsInput {
 
@@ -10,6 +10,9 @@ export class EmailsInput {
 
   private render (): void {
     const emailsInput = createElement('div', ['emails-input'])
+
+    // TODO: assign to local property
+    new InputEmail(emailsInput)
 
     this.container.appendChild(emailsInput)
   }
