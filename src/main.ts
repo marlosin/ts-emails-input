@@ -1,7 +1,7 @@
-import { EmailForm } from './components/email-form/component';
+import { EmailForm } from './components/email-form';
 import './assets/styles/main.sass'
 
-function app () {
+function app (): void {
   new EmailForm(document.body)
 }
 

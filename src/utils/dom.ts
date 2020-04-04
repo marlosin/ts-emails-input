@@ -1,8 +1,13 @@
 /**
  * Creates an element and adds optional classes
  */
-export const createElement = (tagName: string, ...classes: string[]): HTMLElement => {
+export const createElement = (
+  tagName: string,
+  template: string,
+  ...classes: string[]
+): HTMLElement => {
   const el = document.createElement(tagName)
+  el.innerHTML = template
   el.classList.add(...classes)
 
   return el
