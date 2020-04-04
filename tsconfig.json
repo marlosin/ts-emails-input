@@ -21,7 +21,6 @@
     "noUnusedParameters": true,
     "skipLibCheck": true,
     "downlevelIteration": true,
-    "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   }

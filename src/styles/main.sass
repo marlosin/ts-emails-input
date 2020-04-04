@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300,400;700&display=swap')
+@import "variables"
+
+*
+  -webkit-font-smoothing: antialiased
+  font-family: 'Open Sans', sans-serif
+
+html, body
+  position: relative
+  width: 100%
+  height: 100%
+
+body
+  background: $white
+  box-sizing: border-box
+  color: $text
+  display: flex
+  align-items: center
+  justify-content: center
+  margin: 0
+  padding: 0
+
+  input,
+  button
+    margin: 0
+    border: 0
+    padding: 0
+    display: inline-block
+    vertical-align: middle
+    white-space: normal
+    background: none
+    line-height: 1
+    font-size: 13px
+
+  input:focus
+    outline: 0
+
+  input
+    -webkit-box-sizing: content-box
+    -moz-box-sizing: content-box
+    box-sizing: content-box
+
+  /* These elements are usually rendered a certain way by the browser */
+  button
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box

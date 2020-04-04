@@ -26,7 +26,7 @@ export default {
       output: 'dist/bundle.css',
       options: {
         includePaths: [
-          'src/assets/styles'
+          'src/styles'
         ],
       },
     }),
