@@ -5,6 +5,7 @@ import { terser } from 'rollup-plugin-terser'
 import resolve from '@rollup/plugin-node-resolve'
 import sass from 'rollup-plugin-sass'
 import html from 'rollup-plugin-html'
+import { eslint } from 'rollup-plugin-eslint'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -31,7 +32,13 @@ export default {
     }),
     html({
 			include: 'src/**/*.html',
-		}),
+    }),
+    eslint({
+      fix: true,
+      include: [
+        'src/*.ts'
+      ],
+    }),
     commonjs(),
     typescript(),
 
