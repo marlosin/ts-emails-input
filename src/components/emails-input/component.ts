@@ -12,7 +12,11 @@ export class EmailsInput {
     const emailsInput = createElement('div', ['emails-input'])
 
     // TODO: assign to local property
-    new InputEmail(emailsInput)
+    const input = new InputEmail(emailsInput)
+
+    input.subscribe((event) => {
+      console.log(event)
+    })
 
     this.container.appendChild(emailsInput)
   }
