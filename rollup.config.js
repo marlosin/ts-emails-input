@@ -2,6 +2,8 @@ import commonjs from '@rollup/plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
 import typescript from '@rollup/plugin-typescript'
 import { terser } from 'rollup-plugin-terser'
+import resolve from '@rollup/plugin-node-resolve'
+import sass from 'rollup-plugin-sass'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -14,8 +16,15 @@ export default {
     file: 'dist/bundle.js',
   },
   plugins: [
-    typescript(),
+    resolve({
+      extensions: ['.ts', '.css', '.sass'],
+      browser: true,
+    }),
+    sass({
+      output: 'dist/bundle.css',
+    }),
     commonjs(),
+    typescript(),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
