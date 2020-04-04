@@ -3,12 +3,19 @@
  */
 export const createElement = (
   tagName: string,
-  template: string,
-  ...classes: string[]
+  templateOrClasses: string | string[],
+  classes?: string[],
 ): HTMLElement => {
   const el = document.createElement(tagName)
-  el.innerHTML = template
-  el.classList.add(...classes)
+  if (typeof templateOrClasses === 'string') {
+    el.innerHTML = templateOrClasses
+  } else {
+    el.classList.add(...templateOrClasses)
+  }
+
+  if (classes) {
+    el.classList.add(...classes)
+  }
 
   return el
 }
@@ -21,7 +28,7 @@ export const createTextNode = (text: string): Text => document.createTextNode(te
 /**
  * An alias for querySelector with optional context node
  */
-export const q = <E extends Element>(context: string | ParentNode, selector: string): E | null => {
+export const q = <E extends Element>(context: string | HTMLElement, selector?: string): E | null => {
   if (typeof context === 'string') {
     return document.querySelector(context)
   }

@@ -9,7 +9,7 @@ export class EmailsInput {
   }
 
   private render (): void {
-    const emailsInput = createElement('div', template, 'emails-input')
+    const emailsInput = createElement('div', ['emails-input'])
 
     this.container.appendChild(emailsInput)
   }

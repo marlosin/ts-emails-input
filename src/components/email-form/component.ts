@@ -13,7 +13,7 @@ export class EmailForm {
   }
 
   private render (): void {
-    const form = createElement('forn', template, 'email-form')
+    const form = createElement('forn', template, ['email-form'])
 
     for (let i = 0; i++ < this.inputs;) {
       new EmailsInput(form)
