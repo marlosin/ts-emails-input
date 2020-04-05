@@ -4,25 +4,28 @@ import { InputEmail } from 'components/input-email'
 import { EmailChip } from 'components/email-chip'
 
 export class EmailsInput {
+  private element: HTMLElement
 
   constructor (private readonly container: HTMLElement) {
     this.render()
   }
 
-  private renderInput(emailsInput: HTMLElement): void {
-    const input = new InputEmail(emailsInput)
+  private renderInput(): void {
+    const input = new InputEmail(this.element)
 
-    input.subscribe(({ email, isValid }) => {
-      const { element: chipElement } = new EmailChip(email, isValid)
-      emailsInput.insertBefore(chipElement, emailsInput.lastChild)
-    })
+    input.subscribe(({ email, isValid }) => this.addEmail(email, isValid))
   }
 
   private render (): void {
-    const emailsInput = createElement('div', ['emails-input'])
+    this.element = createElement('div', ['emails-input'])
 
-    this.renderInput(emailsInput)
+    this.renderInput()
 
-    this.container.appendChild(emailsInput)
+    this.container.appendChild(this.element)
+  }
+
+  public addEmail(email: string, isValid = true): void {
+    const { element: chipElement } = new EmailChip(email, isValid)
+    this.element.insertBefore(chipElement, this.element.lastChild)
   }
 }
