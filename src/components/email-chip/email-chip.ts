@@ -24,8 +24,8 @@ export class EmailChip {
     return this.isValid ? classes : classes.concat('email-chip--invalid')
   }
 
-  private addCloseListener(): void {
-    q(this._element, '.email-chip__close-button').addEventListener('click', () => {
+  private addRemoveListener(): void {
+    q(this._element, '.email-chip__remove-button').addEventListener('click', () => {
       this._element.remove()
       this.eventTarget.dispatchEvent(new Event(EmailEvent.REMOVE_EMAIL))
     })
@@ -35,7 +35,7 @@ export class EmailChip {
     this._element = createElement('div', template, this.styleClasses)
 
     q(this._element, '.email-chip__address').innerHTML = this.emailAddress
-    this.addCloseListener()
+    this.addRemoveListener()
   }
 
   /**
