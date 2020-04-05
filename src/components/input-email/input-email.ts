@@ -79,7 +79,7 @@ export class InputEmail {
     }
 
     // reset value
-    setTimeout(() => this.nativeElement.value = '')
+    this.nativeElement.value = ''
   }
 
   private addListeners(): void {
@@ -114,6 +114,7 @@ export class InputEmail {
   }
 
   onPaste(event: ClipboardEvent): void {
+    event.preventDefault()
     const pasteText = event.clipboardData.getData('text')
     const emails = pasteText.split(',')
       .map(formatEmail)
