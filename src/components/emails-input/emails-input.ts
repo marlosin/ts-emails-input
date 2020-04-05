@@ -51,6 +51,9 @@ export class EmailsInput {
     this.element.insertBefore(emailChip.element, this.element.lastChild)
 
     emailChip.addEventListener(EmailEvent.REMOVE, () => this.emailMap.delete(email))
+
+    // move scroll to the bottom to make input visible
+    this.element.scrollTop = this.element.scrollHeight
   }
 
   /**
