@@ -45,6 +45,13 @@ export class EmailsInput {
   }
 
   /**
+   * Gets all the emails
+   */
+  public getAllEmails(): string[] {
+    return [...this.emailMap.keys()]
+  }
+
+  /**
    * Gets the total count of valid e-mails
    */
   public getValidCount(): number {
