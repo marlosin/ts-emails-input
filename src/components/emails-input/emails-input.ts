@@ -40,6 +40,8 @@ export class EmailsInput {
 
     const emailChip = new EmailChip(email, isValid)
     this.element.insertBefore(emailChip.element, this.element.lastChild)
+
+    emailChip.addEventListener(EmailEvent.REMOVE_EMAIL, () => this.emailMap.delete(email))
   }
 
   public getValidCount(): number {

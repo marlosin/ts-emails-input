@@ -1,6 +1,7 @@
 import './email-chip.sass'
 import template from './email-chip.html'
 import { createElement, q } from 'utils/dom'
+import { EmailEvent, CustomEventListener } from 'types'
 
 export class EmailChip {
   private _element: HTMLElement
@@ -12,6 +13,7 @@ export class EmailChip {
   constructor (
     private readonly emailAddress: string,
     private readonly isValid: boolean,
+    private readonly eventTarget = new EventTarget()
   ) {
     this.createElement()
   }
@@ -25,6 +27,7 @@ export class EmailChip {
   private addCloseListener(): void {
     q(this._element, '.email-chip__close-button').addEventListener('click', () => {
       this._element.remove()
+      this.eventTarget.dispatchEvent(new Event(EmailEvent.REMOVE_EMAIL))
     })
   }
 
@@ -33,5 +36,13 @@ export class EmailChip {
 
     q(this._element, '.email-chip__address').innerHTML = this.emailAddress
     this.addCloseListener()
+  }
+
+  /**
+   * Adds listener to available events:
+   * - EmailEvent.REMVOVE_EMAIL
+   */
+  public addEventListener(eventName: EmailEvent, listener: CustomEventListener<void>): void {
+    this.eventTarget.addEventListener(eventName, listener)
   }
 }
