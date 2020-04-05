@@ -76,7 +76,7 @@ export class InputEmail {
     }
 
     // reset value
-    this.input.value = ''
+    setTimeout(() => this.input.value = '')
   }
 
   public onInput(event: KeyboardEvent): void {
