@@ -3,6 +3,7 @@ import template from './input-email.html'
 import { createElement, q } from 'utils/dom'
 import { EmailAddEvent } from './types'
 import { KEY_ENTER, KEY_COMMA, KEY_RETURN } from 'keycode-js'
+import { EmailEvent } from 'types'
 
 type AddEmailSubscriber = (evt: CustomEvent<EmailAddEvent>) => void
 
@@ -10,13 +11,6 @@ type AddEmailSubscriber = (evt: CustomEvent<EmailAddEvent>) => void
  * Trims and make an email lowercase
  */
 export const formatEmail = (email: string): string => email.trim().toLowerCase()
-
-/**
- * Event name
- */
-export enum InputEmailEvent {
-  ADD_EMAIL = 'ADD_EMAIL',
-}
 
 export class InputEmail {
   /**
@@ -64,7 +58,7 @@ export class InputEmail {
   }
 
   private emit(event: EmailAddEvent): void {
-    this.eventTarget.dispatchEvent(new CustomEvent(InputEmailEvent.ADD_EMAIL, { detail: event }))
+    this.eventTarget.dispatchEvent(new CustomEvent(EmailEvent.ADD_EMAIL, { detail: event }))
   }
 
   private emitAdd(emails?: string[]): void {
@@ -115,7 +109,7 @@ export class InputEmail {
   /**
    * Subscribes to e-mail add events
    */
-  public addEventListener(eventName: InputEmailEvent, subscriber: AddEmailSubscriber): void {
+  public addEventListener(eventName: EmailEvent, subscriber: AddEmailSubscriber): void {
     this.eventTarget.addEventListener(eventName, subscriber)
   }
 

@@ -1,7 +1,8 @@
 import './emails-input.sass'
 import { createElement } from 'utils/dom'
-import { InputEmail, EmailAddEvent, InputEmailEvent } from 'components/input-email'
+import { InputEmail, EmailAddEvent } from 'components/input-email'
 import { EmailChip } from 'components/email-chip'
+import { EmailEvent } from 'types'
 
 export class EmailsInput {
   private element: HTMLElement
@@ -17,7 +18,7 @@ export class EmailsInput {
     this.input = new InputEmail(this.element)
 
     this.input.addEventListener(
-      InputEmailEvent.ADD_EMAIL,
+      EmailEvent.ADD_EMAIL,
       ({ detail: { email, isValid } }: CustomEvent<EmailAddEvent>) => {
         this.addEmail(email, isValid)
       },
