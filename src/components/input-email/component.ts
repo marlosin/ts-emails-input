@@ -6,6 +6,8 @@ import { KEY_ENTER, KEY_COMMA, KEY_RETURN } from 'keycode-js'
 
 type AddEmailSubscriber = (_: EmailAddEvent) => void
 
+export const formatEmail = (email: string): string => email.trim().toLowerCase()
+
 export class InputEmail {
 
   /**
@@ -37,6 +39,10 @@ export class InputEmail {
    */
   private isValid: boolean;
 
+  get isValueNotEmpty(): boolean {
+    return Boolean(formatEmail(this.input.value).replace(/,/g, ''))
+  }
+
   /**
    * The keys that triggers onAdd event
    */
@@ -57,7 +63,7 @@ export class InputEmail {
   private emitAdd(emails?: string[]): void {
     if (!emails) {
       this.emit({
-        email: this.input.value,
+        email: formatEmail(this.input.value),
         isValid: this.isValid,
       })
     } else {
@@ -77,14 +83,24 @@ export class InputEmail {
   public onInput(event: KeyboardEvent): void {
     this.isValid = this.input.checkValidity()
 
-    if (this.addKeys.includes(event.keyCode)) {
+    if (this.addKeys.includes(event.keyCode) && this.isValueNotEmpty) {
+      this.emitAdd()
+    }
+  }
+
+  public onBlur(): void {
+    this.isValid = this.input.checkValidity()
+
+    if (this.isValueNotEmpty) {
       this.emitAdd()
     }
   }
 
   public onPaste(event: ClipboardEvent): void {
     const pasteText = event.clipboardData.getData('text')
-    const emails = pasteText.split(',').map(t => t.trim())
+    const emails = pasteText.split(',')
+      .map(formatEmail)
+      .filter(Boolean)
 
     this.emitAdd(emails)
   }
@@ -96,13 +112,17 @@ export class InputEmail {
     this.listeners.push(subscriber)
   }
 
+  private addListeners(): void {
+    this.input.addEventListener('keydown', (e: KeyboardEvent) => this.onInput(e))
+    this.input.addEventListener('blur', () => this.onBlur())
+    this.input.addEventListener('paste', (e: ClipboardEvent) => this.onPaste(e))
+  }
+
   private render (): void {
     const inputContainer = createElement('div', template, ['input-email-container'])
     this.input = q(inputContainer, 'input')
 
-    this.input.addEventListener('keydown', (e: KeyboardEvent) => this.onInput(e))
-    this.input.addEventListener('blur', () => this.emitAdd())
-    this.input.addEventListener('paste', (e: ClipboardEvent) => this.onPaste(e))
+    this.addListeners()
 
     this.container.appendChild(inputContainer)
   }
