@@ -25,6 +25,6 @@ export class EmailChip {
   private createElement (): void {
     this._element = createElement('div', template, this.styleClasses)
 
-    q(this._element, '.email-chip__adrress').innerHTML = this.emailAddress
+    q(this._element, '.email-chip__address').innerHTML = this.emailAddress
   }
 }
