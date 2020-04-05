@@ -1,5 +1,5 @@
-import './main.sass'
-import template from './template.html'
+import './email-form.sass'
+import template from './email-form.html'
 import { createElement, q } from 'utils/dom'
 import { EmailsInput } from 'components/emails-input'
 
