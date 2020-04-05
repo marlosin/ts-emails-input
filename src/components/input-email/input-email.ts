@@ -4,9 +4,19 @@ import { createElement, q } from 'utils/dom'
 import { EmailAddEvent } from './types'
 import { KEY_ENTER, KEY_COMMA, KEY_RETURN } from 'keycode-js'
 
-type AddEmailSubscriber = (_: EmailAddEvent) => void
+type AddEmailSubscriber = (evt: CustomEvent<EmailAddEvent>) => void
 
+/**
+ * Trims and make an email lowercase
+ */
 export const formatEmail = (email: string): string => email.trim().toLowerCase()
+
+/**
+ * Event name
+ */
+export enum InputEmailEvent {
+  ADD_EMAIL = 'ADD_EMAIL',
+}
 
 export class InputEmail {
   /**
@@ -29,11 +39,6 @@ export class InputEmail {
   private _inputClone: HTMLInputElement
 
   /**
-   * The listeners to the add event
-   */
-  private listeners: AddEmailSubscriber[] = []
-
-  /**
    * Whether the input is valid
    */
   private isValid: boolean;
@@ -51,12 +56,15 @@ export class InputEmail {
     KEY_COMMA,
   ]
 
-  constructor (private readonly container: HTMLElement) {
+  constructor (
+    private readonly container: HTMLElement,
+    private readonly eventTarget = new EventTarget(),
+  ) {
     this.render()
   }
 
   private emit(event: EmailAddEvent): void {
-    this.listeners.forEach(listener => listener(event))
+    this.eventTarget.dispatchEvent(new CustomEvent(InputEmailEvent.ADD_EMAIL, { detail: event }))
   }
 
   private emitAdd(emails?: string[]): void {
@@ -107,8 +115,8 @@ export class InputEmail {
   /**
    * Subscribes to e-mail add events
    */
-  public subscribe(subscriber: AddEmailSubscriber): void {
-    this.listeners.push(subscriber)
+  public addEventListener(eventName: InputEmailEvent, subscriber: AddEmailSubscriber): void {
+    this.eventTarget.addEventListener(eventName, subscriber)
   }
 
   private addListeners(): void {

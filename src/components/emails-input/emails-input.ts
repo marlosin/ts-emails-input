@@ -1,6 +1,6 @@
 import './emails-input.sass'
 import { createElement } from 'utils/dom'
-import { InputEmail } from 'components/input-email'
+import { InputEmail, EmailAddEvent, InputEmailEvent } from 'components/input-email'
 import { EmailChip } from 'components/email-chip'
 
 export class EmailsInput {
@@ -16,7 +16,12 @@ export class EmailsInput {
   private renderInput(): void {
     this.input = new InputEmail(this.element)
 
-    this.input.subscribe(({ email, isValid }) => this.addEmail(email, isValid))
+    this.input.addEventListener(
+      InputEmailEvent.ADD_EMAIL,
+      ({ detail: { email, isValid } }: CustomEvent<EmailAddEvent>) => {
+        this.addEmail(email, isValid)
+      },
+    )
   }
 
   private render (): void {
@@ -31,8 +36,9 @@ export class EmailsInput {
     if (this.emailMap.has(email)) { return } // do not add repeated e-mails
 
     this.emailMap.set(email, isValid)
-    const { element: chipElement } = new EmailChip(email, isValid)
-    this.element.insertBefore(chipElement, this.element.lastChild)
+
+    const emailChip = new EmailChip(email, isValid)
+    this.element.insertBefore(emailChip.element, this.element.lastChild)
   }
 
   public getValidCount(): number {
