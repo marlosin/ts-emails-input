@@ -1,4 +1,4 @@
-import { EmailForm } from './components/email-form';
+import { EmailForm } from './components'
 import './assets/styles/main.sass'
 
 function app (): void {

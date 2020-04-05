@@ -1,7 +1,7 @@
-import './main.sass'
+import './emails-input.sass'
 import { createElement } from 'utils/dom'
-import { InputEmail } from 'components/input-email';
-import { EmailChip } from 'components/email-chip';
+import { InputEmail } from 'components/input-email'
+import { EmailChip } from 'components/email-chip'
 
 export class EmailsInput {
 
