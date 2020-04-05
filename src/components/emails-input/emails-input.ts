@@ -1,5 +1,5 @@
 import './emails-input.sass'
-import { createElement } from 'utils/dom'
+import { createElement, isEmailValid } from 'utils'
 import { InputEmail, EmailAddEvent } from 'components/input-email'
 import { EmailChip } from 'components/email-chip'
 import { EmailEvent } from 'types'
@@ -58,5 +58,13 @@ export class EmailsInput {
     return [...this.emailMap.values()]
       .filter(Boolean)
       .length
+  }
+
+  /**
+   * Gets all the emails
+   */
+  public replaceAllEmails(emails: string[]): void {
+    this.emailMap.clear()
+    emails.forEach(email => this.addEmail(email, isEmailValid(email)))
   }
 }
