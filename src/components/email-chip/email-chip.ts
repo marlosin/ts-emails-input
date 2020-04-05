@@ -27,7 +27,7 @@ export class EmailChip {
   private addRemoveListener(): void {
     q(this._element, '.email-chip__remove-button').addEventListener('click', () => {
       this._element.remove()
-      this.eventTarget.dispatchEvent(new Event(EmailEvent.REMOVE_EMAIL))
+      this.eventTarget.dispatchEvent(new Event(EmailEvent.REMOVE))
     })
   }
 

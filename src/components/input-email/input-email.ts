@@ -56,7 +56,7 @@ export class InputEmail {
   }
 
   private emit(event: EmailAddEvent): void {
-    this.eventTarget.dispatchEvent(new CustomEvent(EmailEvent.ADD_EMAIL, { detail: event }))
+    this.eventTarget.dispatchEvent(new CustomEvent(EmailEvent.ADD, { detail: event }))
   }
 
   private emitAdd(emails?: string[]): void {

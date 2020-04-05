@@ -2,8 +2,8 @@
  * E-mail events
  */
 export enum EmailEvent {
-  ADD_EMAIL = 'ADD_EMAIL',
-  REMOVE_EMAIL = 'REMOVE_EMAIL',
+  ADD = 'ADD',
+  REMOVE = 'REMOVE',
 }
 
 /**

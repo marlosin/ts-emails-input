@@ -18,7 +18,7 @@ export class EmailsInput {
     this.input = new InputEmail(this.element)
 
     this.input.addEventListener(
-      EmailEvent.ADD_EMAIL,
+      EmailEvent.ADD,
       ({ detail: { email, isValid } }: CustomEvent<EmailAddEvent>) => {
         this.addEmail(email, isValid)
       },
@@ -41,9 +41,12 @@ export class EmailsInput {
     const emailChip = new EmailChip(email, isValid)
     this.element.insertBefore(emailChip.element, this.element.lastChild)
 
-    emailChip.addEventListener(EmailEvent.REMOVE_EMAIL, () => this.emailMap.delete(email))
+    emailChip.addEventListener(EmailEvent.REMOVE, () => this.emailMap.delete(email))
   }
 
+  /**
+   * Gets the total count of valid e-mails
+   */
   public getValidCount(): number {
     return [...this.emailMap.values()]
       .filter(Boolean)
