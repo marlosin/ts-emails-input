@@ -3,9 +3,7 @@ import template from './input-email.html'
 import { createElement, q } from 'utils/dom'
 import { EmailAddEvent } from './types'
 import { KEY_ENTER, KEY_COMMA, KEY_RETURN } from 'keycode-js'
-import { EmailEvent } from 'types'
-
-type AddEmailSubscriber = (evt: CustomEvent<EmailAddEvent>) => void
+import { EmailEvent, CustomEventListener } from 'types'
 
 /**
  * Trims and make an email lowercase
@@ -109,8 +107,8 @@ export class InputEmail {
   /**
    * Subscribes to e-mail add events
    */
-  public addEventListener(eventName: EmailEvent, subscriber: AddEmailSubscriber): void {
-    this.eventTarget.addEventListener(eventName, subscriber)
+  public addEventListener(eventName: EmailEvent, listener: CustomEventListener<EmailAddEvent>): void {
+    this.eventTarget.addEventListener(eventName, listener)
   }
 
   private addListeners(): void {
