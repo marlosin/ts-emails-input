@@ -6,6 +6,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import sass from 'rollup-plugin-sass'
 import html from 'rollup-plugin-html'
 import { eslint } from 'rollup-plugin-eslint'
+import copy from 'rollup-plugin-copy'
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -41,6 +42,11 @@ export default {
     }),
     commonjs(),
     typescript(),
+    copy({
+      targets: [
+        { src: 'src/assets/images/**/*', dest: 'dist/assets/images' }
+      ]
+    }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
