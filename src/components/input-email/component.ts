@@ -60,16 +60,15 @@ export class InputEmail {
         email: this.input.value,
         isValid: this.isValid,
       })
-      return
-    }
-
-    emails.forEach(email => {
-      this._inputClone.value = email
-      this.emit({
-        email,
-        isValid: this._inputClone.checkValidity()
+    } else {
+      emails.forEach(email => {
+        this._inputClone.value = email
+        this.emit({
+          email,
+          isValid: this._inputClone.checkValidity()
+        })
       })
-    })
+    }
 
     // reset value
     this.input.value = ''
@@ -84,7 +83,7 @@ export class InputEmail {
   }
 
   public onPaste(event: ClipboardEvent): void {
-    const pasteText = event.clipboardData.getData('text');
+    const pasteText = event.clipboardData.getData('text')
     const emails = pasteText.split(',').map(t => t.trim())
 
     this.emitAdd(emails)
@@ -101,7 +100,8 @@ export class InputEmail {
     const inputContainer = createElement('div', template, ['input-email-container'])
     this.input = q(inputContainer, 'input')
 
-    this.input.addEventListener('keyup', (e: KeyboardEvent) => this.onInput(e))
+    this.input.addEventListener('keydown', (e: KeyboardEvent) => this.onInput(e))
+    this.input.addEventListener('blur', () => this.emitAdd())
     this.input.addEventListener('paste', (e: ClipboardEvent) => this.onPaste(e))
 
     this.container.appendChild(inputContainer)
