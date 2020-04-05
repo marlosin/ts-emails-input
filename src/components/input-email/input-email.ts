@@ -14,14 +14,14 @@ export class InputEmail {
   /**
    * The native input
    */
-  private _input: HTMLInputElement
+  private _nativeElement: HTMLInputElement
 
-  get input (): HTMLInputElement {
-    return this._input
+  get nativeElement (): HTMLInputElement {
+    return this._nativeElement
   }
 
-  set input (input: HTMLInputElement) {
-    this._input = input
+  set nativeElement (input: HTMLInputElement) {
+    this._nativeElement = input
     this._inputClone = input.cloneNode() as HTMLInputElement
   }
 
@@ -39,7 +39,7 @@ export class InputEmail {
    * Whether an email has any content, removing commas
    */
   get isValueNotEmpty(): boolean {
-    return Boolean(formatEmail(this.input.value.replace(/,/g, '')))
+    return Boolean(formatEmail(this.nativeElement.value.replace(/,/g, '')))
   }
 
   /**
@@ -65,7 +65,7 @@ export class InputEmail {
   private emitAdd(emails?: string[]): void {
     if (!emails) {
       this.emit({
-        email: formatEmail(this.input.value),
+        email: formatEmail(this.nativeElement.value),
         isValid: this.isValid,
       })
     } else {
@@ -79,18 +79,18 @@ export class InputEmail {
     }
 
     // reset value
-    setTimeout(() => this.input.value = '')
+    setTimeout(() => this.nativeElement.value = '')
   }
 
   private addListeners(): void {
-    this.input.addEventListener('keydown', (e: KeyboardEvent) => this.onInput(e))
-    this.input.addEventListener('blur', () => this.onBlur())
-    this.input.addEventListener('paste', (e: ClipboardEvent) => this.onPaste(e))
+    this.nativeElement.addEventListener('keydown', (e: KeyboardEvent) => this.onInput(e))
+    this.nativeElement.addEventListener('blur', () => this.onBlur())
+    this.nativeElement.addEventListener('paste', (e: ClipboardEvent) => this.onPaste(e))
   }
 
   private render (): void {
     const inputContainer = createElement('div', template, ['input-email-container'])
-    this.input = q(inputContainer, 'input')
+    this.nativeElement = q(inputContainer, 'input')
 
     this.addListeners()
 
@@ -98,8 +98,7 @@ export class InputEmail {
   }
 
   onInput(event: KeyboardEvent): void {
-    this.isValid = this.input.checkValidity()
-    console.log(this.isValid)
+    this.isValid = this.nativeElement.checkValidity()
 
     if (this.addKeys.includes(event.keyCode) && this.isValueNotEmpty) {
       this.emitAdd()
@@ -107,7 +106,7 @@ export class InputEmail {
   }
 
   onBlur(): void {
-    this.isValid = this.input.checkValidity()
+    this.isValid = this.nativeElement.checkValidity()
 
     if (this.isValueNotEmpty) {
       this.emitAdd()

@@ -23,6 +23,12 @@ export class EmailsInput {
         this.addEmail(email, isValid)
       },
     )
+
+    this.element.addEventListener('click', ({ target }) => {
+      if (target === this.element) {
+        this.input.nativeElement.focus()
+      }
+    })
   }
 
   private render (): void {
