@@ -1,5 +1,5 @@
-import './main.sass'
-import template from './template.html'
+import './input-email.sass'
+import template from './input-email.html'
 import { createElement, q } from 'utils/dom'
 import { EmailAddEvent } from './types'
 import { KEY_ENTER, KEY_COMMA, KEY_RETURN } from 'keycode-js'
@@ -9,7 +9,6 @@ type AddEmailSubscriber = (_: EmailAddEvent) => void
 export const formatEmail = (email: string): string => email.trim().toLowerCase()
 
 export class InputEmail {
-
   /**
    * The native input
    */

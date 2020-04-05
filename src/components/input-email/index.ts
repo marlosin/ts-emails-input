@@ -1,2 +1,2 @@
-export * from './component'
+export * from './input-email'
 export * from './types'
