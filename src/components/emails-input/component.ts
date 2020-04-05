@@ -1,6 +1,7 @@
 import './main.sass'
 import { createElement } from 'utils/dom'
 import { InputEmail } from 'components/input-email';
+import { EmailChip } from 'components/email-chip';
 
 export class EmailsInput {
 
@@ -8,15 +9,19 @@ export class EmailsInput {
     this.render()
   }
 
+  private renderInput(emailsInput: HTMLElement): void {
+    const input = new InputEmail(emailsInput)
+
+    input.subscribe(({ email, isValid }) => {
+      const { element: chipElement } = new EmailChip(email, isValid)
+      emailsInput.insertBefore(chipElement, emailsInput.lastChild)
+    })
+  }
+
   private render (): void {
     const emailsInput = createElement('div', ['emails-input'])
 
-    // TODO: assign to local property
-    const input = new InputEmail(emailsInput)
-
-    input.subscribe((event) => {
-      console.log(event)
-    })
+    this.renderInput(emailsInput)
 
     this.container.appendChild(emailsInput)
   }
