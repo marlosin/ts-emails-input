@@ -35,8 +35,11 @@ export class InputEmail {
    */
   private isValid: boolean;
 
+  /**
+   * Whether an email has any content, removing commas
+   */
   get isValueNotEmpty(): boolean {
-    return Boolean(formatEmail(this.input.value).replace(/,/g, ''))
+    return Boolean(formatEmail(this.input.value.replace(/,/g, '')))
   }
 
   /**
@@ -79,38 +82,6 @@ export class InputEmail {
     setTimeout(() => this.input.value = '')
   }
 
-  public onInput(event: KeyboardEvent): void {
-    this.isValid = this.input.checkValidity()
-
-    if (this.addKeys.includes(event.keyCode) && this.isValueNotEmpty) {
-      this.emitAdd()
-    }
-  }
-
-  public onBlur(): void {
-    this.isValid = this.input.checkValidity()
-
-    if (this.isValueNotEmpty) {
-      this.emitAdd()
-    }
-  }
-
-  public onPaste(event: ClipboardEvent): void {
-    const pasteText = event.clipboardData.getData('text')
-    const emails = pasteText.split(',')
-      .map(formatEmail)
-      .filter(Boolean)
-
-    this.emitAdd(emails)
-  }
-
-  /**
-   * Subscribes to e-mail add events
-   */
-  public addEventListener(eventName: EmailEvent, listener: CustomEventListener<EmailAddEvent>): void {
-    this.eventTarget.addEventListener(eventName, listener)
-  }
-
   private addListeners(): void {
     this.input.addEventListener('keydown', (e: KeyboardEvent) => this.onInput(e))
     this.input.addEventListener('blur', () => this.onBlur())
@@ -124,5 +95,38 @@ export class InputEmail {
     this.addListeners()
 
     this.container.appendChild(inputContainer)
+  }
+
+  onInput(event: KeyboardEvent): void {
+    this.isValid = this.input.checkValidity()
+    console.log(this.isValid)
+
+    if (this.addKeys.includes(event.keyCode) && this.isValueNotEmpty) {
+      this.emitAdd()
+    }
+  }
+
+  onBlur(): void {
+    this.isValid = this.input.checkValidity()
+
+    if (this.isValueNotEmpty) {
+      this.emitAdd()
+    }
+  }
+
+  onPaste(event: ClipboardEvent): void {
+    const pasteText = event.clipboardData.getData('text')
+    const emails = pasteText.split(',')
+      .map(formatEmail)
+      .filter(Boolean)
+
+    this.emitAdd(emails)
+  }
+
+  /**
+   * Subscribes to e-mail add events
+   */
+  addEventListener(eventName: EmailEvent, listener: CustomEventListener<EmailAddEvent>): void {
+    this.eventTarget.addEventListener(eventName, listener)
   }
 }

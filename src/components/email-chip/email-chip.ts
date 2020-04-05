@@ -10,18 +10,18 @@ export class EmailChip {
     return this._element
   }
 
+  get styleClasses(): string[] {
+    const classes = ['email-chip']
+
+    return this.isValid ? classes : classes.concat('email-chip--invalid')
+  }
+
   constructor (
     private readonly emailAddress: string,
     private readonly isValid: boolean,
     private readonly eventTarget = new EventTarget()
   ) {
     this.createElement()
-  }
-
-  public get styleClasses(): string[] {
-    const classes = ['email-chip']
-
-    return this.isValid ? classes : classes.concat('email-chip--invalid')
   }
 
   private addRemoveListener(): void {
@@ -42,7 +42,7 @@ export class EmailChip {
    * Adds listener to available events:
    * - EmailEvent.REMVOVE_EMAIL
    */
-  public addEventListener(eventName: EmailEvent, listener: CustomEventListener<void>): void {
+  addEventListener(eventName: EmailEvent, listener: CustomEventListener<void>): void {
     this.eventTarget.addEventListener(eventName, listener)
   }
 }

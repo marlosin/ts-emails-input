@@ -33,7 +33,7 @@ export class EmailsInput {
     this.container.appendChild(this.element)
   }
 
-  public addEmail(email: string, isValid = true): void {
+  addEmail(email: string, isValid = true): void {
     if (this.emailMap.has(email)) { return } // do not add repeated e-mails
 
     this.emailMap.set(email, isValid)
@@ -47,14 +47,14 @@ export class EmailsInput {
   /**
    * Gets all the emails
    */
-  public getAllEmails(): string[] {
+  getAllEmails(): string[] {
     return [...this.emailMap.keys()]
   }
 
   /**
    * Gets the total count of valid e-mails
    */
-  public getValidCount(): number {
+  getValidCount(): number {
     return [...this.emailMap.values()]
       .filter(Boolean)
       .length
@@ -63,7 +63,7 @@ export class EmailsInput {
   /**
    * Gets all the emails
    */
-  public replaceAllEmails(emails: string[]): void {
+  replaceAllEmails(emails: string[]): void {
     this.emailMap.clear()
     emails.forEach(email => this.addEmail(email, isEmailValid(email)))
   }
