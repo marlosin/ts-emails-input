@@ -21,11 +21,6 @@ export const createElement = (
 }
 
 /**
- * Creates a text node
- */
-export const createTextNode = (text: string): Text => document.createTextNode(text)
-
-/**
  * An alias for querySelector with optional context node
  */
 export const q = <E extends Element>(context: string | HTMLElement, selector?: string): E | null => {

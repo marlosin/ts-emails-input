@@ -40,7 +40,8 @@ export class EmailChip {
 
   /**
    * Adds listener to available events:
-   * - EmailEvent.REMVOVE_EMAIL
+   * - REMOVE
+   * @see EmailEvent
    */
   addEventListener(eventName: EmailEvent, listener: CustomEventListener<void>): void {
     this.eventTarget.addEventListener(eventName, listener)

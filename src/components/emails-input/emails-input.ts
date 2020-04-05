@@ -33,6 +33,9 @@ export class EmailsInput {
     this.container.appendChild(this.element)
   }
 
+  /**
+   * Adds an e-mail to the component
+   */
   addEmail(email: string, isValid = true): void {
     if (this.emailMap.has(email)) { return } // do not add repeated e-mails
 

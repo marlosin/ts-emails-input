@@ -124,7 +124,9 @@ export class InputEmail {
   }
 
   /**
-   * Subscribes to e-mail add events
+   * Adds listener to available events:
+   * - ADD
+   * @see EmailEvent
    */
   addEventListener(eventName: EmailEvent, listener: CustomEventListener<EmailAddEvent>): void {
     this.eventTarget.addEventListener(eventName, listener)
