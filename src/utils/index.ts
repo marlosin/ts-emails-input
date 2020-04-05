@@ -1,2 +1,2 @@
 export * from './dom'
-export * from './random-email'
+export * from './email'
