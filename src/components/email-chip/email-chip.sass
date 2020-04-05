@@ -1,0 +1,30 @@
+@import "mixins"
+@import "variables"
+
+.email-chip
+  display: flex
+  background: rgba(102, 153, 255, 0.2)
+  border-radius: 100px
+  padding: 10px
+
+  &--invalid
+    border-radius: 0
+    background: transparent
+    border-bottom: 1px dashed #D92929
+    padding: 5px
+
+  &__adrress
+
+  &__close-button
+    background:
+      image: url('/assets/images/close.svg')
+      repeat-y: no-repeat
+      position: center
+      size: contain
+
+    cursor: pointer
+    padding: 5px
+    margin-left: $default-margin
+    width: $default-margin
+    height: $default-margin
+    outline: 0
