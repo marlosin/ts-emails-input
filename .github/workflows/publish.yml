@@ -3,6 +3,8 @@ name: Publish ts-emails-input to GitHub Pages
 on:
   push:
     branches: master
+    paths:
+      - 'src/**'
 
 jobs:
   publish:
