@@ -53,4 +53,8 @@ export class EmailForm {
   addInput(length = 1): void {
     this.emailsInputs.push(...this.getEmailsInputs(length))
   }
+
+  replaceEmails(emails: string[], index = 0): void {
+    this.emailsInputs[index]?.replaceAllEmails(emails)
+  }
 }
