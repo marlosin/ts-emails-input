@@ -1,0 +1,24 @@
+@mixin reset-form-input()
+  margin: 0
+  border: 0
+  padding: 0
+  display: inline-block
+  vertical-align: middle
+  white-space: normal
+  background: none
+  line-height: 1
+
+@mixin reset-input()
+  @include reset-form-input()
+  -webkit-box-sizing: content-box
+  -moz-box-sizing: content-box
+  box-sizing: content-box
+
+  &:focus
+    outline: 0
+
+@mixin reset-button()
+  @include reset-form-input()
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box

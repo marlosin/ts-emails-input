@@ -1,13 +1,13 @@
 @import "variables"
+@import "mixins"
 
 .input-email-container
   display: contents
 
 .input-email
+  @include reset-input()
   background: transparent
-  border: none
   border-radius: $border-radius
-  box-shadow: none
   font-size: 14px
   flex: 1
   padding: 6px 2px
