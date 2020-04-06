@@ -1,6 +1,6 @@
 import './input-email.sass'
 import template from './input-email.html'
-import { createElement, q } from 'utils/dom'
+import { createElement, q, createEventTarget } from 'utils/dom'
 import { EmailAddEvent } from './types'
 import { KEY_ENTER, KEY_COMMA, KEY_RETURN } from 'keycode-js'
 import { EmailEvent, CustomEventListener } from 'types'
@@ -53,7 +53,7 @@ export class InputEmail {
 
   constructor (
     private readonly container: HTMLElement,
-    private readonly eventTarget = new EventTarget(),
+    private readonly eventTarget = createEventTarget(),
   ) {
     this.render()
   }

@@ -1,6 +1,6 @@
 import './email-chip.sass'
 import template from './email-chip.html'
-import { createElement, q } from 'utils/dom'
+import { createElement, q, createEventTarget } from 'utils/dom'
 import { EmailEvent, CustomEventListener } from 'types'
 
 export class EmailChip {
@@ -20,7 +20,7 @@ export class EmailChip {
   constructor (
     private readonly emailAddress: string,
     private readonly isValid: boolean,
-    private readonly eventTarget = new EventTarget()
+    private readonly eventTarget = createEventTarget()
   ) {
     this.createElement()
   }
