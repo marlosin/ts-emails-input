@@ -40,6 +40,11 @@ export class EmailForm {
       })
   }
 
+  private defineGlobalMethods(): void {
+    window.addEmailsInput = this.addInput.bind(this)
+    window.replaceEmails = this.replaceEmails.bind(this)
+  }
+
   private render (): void {
     this.element = createElement('forn', template, ['email-form']) as HTMLFormElement
     this.body = q(this.element, '.email-form-header__body')
@@ -48,6 +53,7 @@ export class EmailForm {
     this.addEventListeners()
 
     this.container.prepend(this.element)
+    this.defineGlobalMethods()
   }
 
   addInput(length = 1): void {
