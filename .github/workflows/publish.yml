@@ -1,0 +1,33 @@
+name: Publish ts-emails-input to GitHub Pages
+
+on:
+  push:
+    branches: master
+    paths:
+      - 'src/**'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to GitHub Pages
+        uses: tsunematsu21/actions-publish-gh-pages@v1.0.0
+        with:
+          dir: dist
+          branch: gh-pages
+          token: ${{ secrets.GITHUB_ACCESS_TOKEN }}
