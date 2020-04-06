@@ -36,13 +36,13 @@ The task `npm run lint` runs ESLint script.
 ## Adding more inputs
 By default, the form contains only one emails input. If you want to display more than one, you can open the browser's console and call `addEmailsInput()` or pass the number of inputs you want to add, e.g. `addEmailsInput(10)`
 
-Alternatively, you can just change the code and run again. Either you pass an additional argument to `EmailForm` constructor inside [main.ts](../blob/master/src/main.ts):
+Alternatively, you can just change the code and run again. Either you pass an additional argument to `EmailForm` constructor inside [main.ts](./blob/master/src/main.ts):
 
 ```typescript
 const emailForm = new EmailForm(document.body, 2 /* The number of inputs */)
 ```
 
-or you modify the constructor itself inside [email-form.ts](../blob/master/src/components/email-form/email-form.ts)
+or you modify the constructor itself inside [email-form.ts](./blob/master/src/components/email-form/email-form.ts)
 
 ```typescript
 // ...
