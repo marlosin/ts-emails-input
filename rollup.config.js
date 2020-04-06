@@ -44,7 +44,8 @@ export default {
     typescript({ noEmitOnError: false, inlineSources: true }),
     copy({
       targets: [
-        { src: 'src/assets/images/**/*', dest: 'dist/assets/images' }
+        { src: 'src/index.html', dest: 'dist' },
+        { src: 'src/assets/images/**/*', dest: 'dist/assets/images' },
       ]
     }),
 
