@@ -41,7 +41,10 @@ export class EmailsInput {
 
   private createEmaillement(email: string, isValid = true): EmailChip {
     const emailChip = new EmailChip(email, isValid)
-    emailChip.addEventListener(EmailEvent.REMOVE, () => this.emailMap.delete(email))
+    emailChip.addEventListener(EmailEvent.REMOVE, () => {
+      this.emailMap.delete(email)
+      this.input.nativeElement.focus()
+    })
 
     return emailChip
   }
