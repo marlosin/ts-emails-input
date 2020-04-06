@@ -99,8 +99,9 @@ export class InputEmail {
 
   onInput(event: KeyboardEvent): void {
     this.isValid = this.nativeElement.checkValidity()
+    const hasAddKey = this.addKeys.indexOf(event.keyCode) !== -1
 
-    if (this.addKeys.includes(event.keyCode) && this.isValueNotEmpty) {
+    if (hasAddKey && this.isValueNotEmpty) {
       this.emitAdd()
     }
   }

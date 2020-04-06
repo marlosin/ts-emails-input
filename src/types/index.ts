@@ -1,9 +1,10 @@
 /**
  * E-mail events
+ * Use real event names for IE support
  */
 export enum EmailEvent {
-  ADD = 'ADD',
-  REMOVE = 'REMOVE',
+  ADD = 'click',
+  REMOVE = 'focus',
 }
 
 /**

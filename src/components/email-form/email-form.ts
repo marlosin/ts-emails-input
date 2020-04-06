@@ -22,10 +22,11 @@ export class EmailForm {
   }
 
   private getEmailsInputs(length = this.inputs): EmailsInput[] {
-    return Array.from(
-      { length },
-      () => new EmailsInput(this.body),
-    )
+    const inputs = []
+    for (let i = 0; i++ < length;) {
+      inputs.push(new EmailsInput(this.body))
+    }
+    return inputs
   }
 
   private addEventListeners(): void {
@@ -52,7 +53,7 @@ export class EmailForm {
     this.emailsInputs = this.getEmailsInputs()
     this.addEventListeners()
 
-    this.container.prepend(this.element)
+    this.container.insertBefore(this.element, this.container.lastChild)
     this.defineGlobalMethods()
   }
 
