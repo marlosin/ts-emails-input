@@ -8,7 +8,7 @@ const sumValidEmails = (counter: number, emailsInput: EmailsInput): number => co
 export class EmailForm {
   private element: HTMLFormElement
   private body: HTMLElement
-  private emailsInputs: ReadonlyArray<EmailsInput>
+  private emailsInputs: EmailsInput[]
 
   private get totalValidEmails(): number {
     return this.emailsInputs.reduce(sumValidEmails, 0)
@@ -21,9 +21,9 @@ export class EmailForm {
     this.render()
   }
 
-  private renderEmailsInputs(): void {
-    this.emailsInputs = Array.from(
-      { length: this.inputs },
+  private getEmailsInputs(length = this.inputs): EmailsInput[] {
+    return Array.from(
+      { length },
       () => new EmailsInput(this.body),
     )
   }
@@ -44,9 +44,13 @@ export class EmailForm {
     this.element = createElement('forn', template, ['email-form']) as HTMLFormElement
     this.body = q(this.element, '.email-form-header__body')
 
-    this.renderEmailsInputs()
+    this.emailsInputs = this.getEmailsInputs()
     this.addEventListeners()
 
     this.container.prepend(this.element)
+  }
+
+  addInput(length = 1): void {
+    this.emailsInputs.push(...this.getEmailsInputs(length))
   }
 }
