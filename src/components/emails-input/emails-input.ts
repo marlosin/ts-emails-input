@@ -8,7 +8,7 @@ export class EmailsInput {
   private element: HTMLElement
   private input: InputEmail
 
-  private readonly emailMap = new Map<string, boolean>()
+  private readonly emailMap = new Map<string, EmailChip>()
 
   constructor (private readonly container: HTMLElement) {
     this.render()
@@ -39,18 +39,24 @@ export class EmailsInput {
     this.container.appendChild(this.element)
   }
 
+  private createEmaillement(email: string, isValid = true): EmailChip {
+    const emailChip = new EmailChip(email, isValid)
+    emailChip.addEventListener(EmailEvent.REMOVE, () => this.emailMap.delete(email))
+
+    return emailChip
+  }
+
   /**
    * Adds an e-mail to the component
    */
   addEmail(email: string, isValid = true): void {
     if (this.emailMap.has(email)) { return } // do not add repeated e-mails
 
-    this.emailMap.set(email, isValid)
+    const emailChip = this.createEmaillement(email, isValid)
 
-    const emailChip = new EmailChip(email, isValid)
+    this.emailMap.set(email, emailChip)
+
     this.element.insertBefore(emailChip.element, this.element.lastChild)
-
-    emailChip.addEventListener(EmailEvent.REMOVE, () => this.emailMap.delete(email))
 
     // move scroll to the bottom to make input visible
     this.element.scrollTop = this.element.scrollHeight
@@ -76,7 +82,10 @@ export class EmailsInput {
    * Gets all the emails
    */
   replaceAllEmails(emails: string[]): void {
+    this.emailMap.forEach(emailChip => emailChip.destroy())
+
     this.emailMap.clear()
+
     emails.forEach(email => this.addEmail(email, isEmailValid(email)))
   }
 }

@@ -26,6 +26,8 @@ export class EmailForm {
       { length: this.inputs },
       () => new EmailsInput(this.body),
     )
+
+    this.emailsInputs.forEach(console.log)
   }
 
   private addEventListeners(): void {

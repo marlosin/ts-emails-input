@@ -5,10 +5,11 @@ import { EmailEvent, CustomEventListener } from 'types'
 
 export class EmailChip {
   private _element: HTMLElement
+  get element(): HTMLElement { return this._element }
 
-  get element(): HTMLElement {
-    return this._element
-  }
+  private _removeButton: HTMLElement
+
+  private _removeButtonListener: () => void
 
   get styleClasses(): string[] {
     const classes = ['email-chip']
@@ -24,18 +25,22 @@ export class EmailChip {
     this.createElement()
   }
 
-  private addRemoveListener(): void {
-    q(this._element, '.email-chip__remove-button').addEventListener('click', () => {
+  private addListeners(): void {
+    this._removeButtonListener = (): void => {
+      this._removeButton.removeEventListener('click', this._removeButtonListener)
       this._element.remove()
       this.eventTarget.dispatchEvent(new Event(EmailEvent.REMOVE))
-    })
+    }
+
+    this._removeButton.addEventListener('click', this._removeButtonListener)
   }
 
   private createElement (): void {
     this._element = createElement('div', template, this.styleClasses)
+    this._removeButton = q(this._element, '.email-chip__remove-button')
 
     q(this._element, '.email-chip__address').innerHTML = this.emailAddress
-    this.addRemoveListener()
+    this.addListeners()
   }
 
   /**
@@ -45,5 +50,9 @@ export class EmailChip {
    */
   addEventListener(eventName: EmailEvent, listener: CustomEventListener<void>): void {
     this.eventTarget.addEventListener(eventName, listener)
+  }
+
+  destroy(): void {
+    this._removeButton.dispatchEvent(new Event('click'))
   }
 }
