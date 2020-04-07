@@ -19,7 +19,7 @@ export class EmailChip {
 
   constructor (
     private readonly emailAddress: string,
-    private readonly isValid: boolean,
+    readonly isValid: boolean,
     private readonly eventTarget = createEventTarget()
   ) {
     this.createElement()

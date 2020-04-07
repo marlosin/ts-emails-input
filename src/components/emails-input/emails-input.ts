@@ -76,9 +76,13 @@ export class EmailsInput {
    * Gets the total count of valid e-mails
    */
   getValidCount(): number {
-    return [...this.emailMap.values()]
-      .filter(Boolean)
-      .length
+    let countValid = 0
+
+    this.emailMap.forEach(({ isValid }) => {
+      if (isValid) { countValid++ }
+    })
+
+    return countValid
   }
 
   /**

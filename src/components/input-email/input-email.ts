@@ -1,6 +1,6 @@
 import './input-email.sass'
 import template from './input-email.html'
-import { createElement, q, createEventTarget, CustomEventData } from 'utils'
+import { createElement, q, createEventTarget, CustomEventData, isEmailValid } from 'utils'
 import { EmailAddEvent } from './types'
 import { KEY_ENTER, KEY_COMMA, KEY_RETURN } from 'keycode-js'
 import { EmailEvent, CustomEventListener } from 'types'
@@ -19,16 +19,6 @@ export class InputEmail {
   get nativeElement (): HTMLInputElement {
     return this._nativeElement
   }
-
-  set nativeElement (input: HTMLInputElement) {
-    this._nativeElement = input
-    this._inputClone = input.cloneNode() as HTMLInputElement
-  }
-
-  /**
-   * The clone input, used for validation purposes
-   */
-  private _inputClone: HTMLInputElement
 
   /**
    * Whether the input is valid
@@ -70,10 +60,9 @@ export class InputEmail {
       })
     } else {
       emails.forEach(email => {
-        this._inputClone.value = email
         this.emit({
           email,
-          isValid: this._inputClone.checkValidity()
+          isValid: isEmailValid(email),
         })
       })
     }
@@ -90,7 +79,7 @@ export class InputEmail {
 
   private render (): void {
     const inputContainer = createElement('div', template, ['input-email-container'])
-    this.nativeElement = q(inputContainer, 'input')
+    this._nativeElement = q(inputContainer, 'input')
 
     this.addListeners()
 
@@ -98,7 +87,7 @@ export class InputEmail {
   }
 
   onInput(event: KeyboardEvent): void {
-    this.isValid = this.nativeElement.checkValidity()
+    this.isValid = isEmailValid(this.nativeElement.value)
     const hasAddKey = this.addKeys.indexOf(event.keyCode) !== -1
 
     if (hasAddKey && this.isValueNotEmpty) {
@@ -107,7 +96,7 @@ export class InputEmail {
   }
 
   onBlur(): void {
-    this.isValid = this.nativeElement.checkValidity()
+    this.isValid = isEmailValid(this.nativeElement.value)
 
     if (this.isValueNotEmpty) {
       this.emitAdd()

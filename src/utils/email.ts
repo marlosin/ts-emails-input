@@ -8,16 +8,9 @@ const createRandomProvider = (): string => providers[Math.floor(Math.random() * 
  */
 export const createRandomEmail = (): string => createRandomText() + '@' + createRandomProvider()
 
-function getEmailInput(value: string): HTMLInputElement {
-  const input = document.createElement('input')
-  input.type = 'email'
-  input.required = true
-  input.value = value
-
-  return input
-}
-
 /**
  * Validates an e-mail address
  */
-export const isEmailValid = (email: string): boolean => getEmailInput(email).checkValidity()
+export function isEmailValid (email: string): boolean {
+  return /^([a-zA-Z0-9_\-\\.]+)@([a-zA-Z0-9_\-\\.]+)\.([a-zA-Z]{2,5})$/i.test(email)
+}
