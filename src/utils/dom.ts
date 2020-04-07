@@ -3,20 +3,22 @@ import { CustomEventTarget } from 'utils'
 /**
  * Creates an element and adds optional classes
  */
-export const createElement = (
+export function createElement (
   tagName: string,
   templateOrClasses: string | string[],
   classes?: string[],
-): HTMLElement => {
+): HTMLElement {
   const el = document.createElement(tagName)
+  const addClasses = (classList: string[]): void => classList.forEach(c => el.classList.add(c))
+
   if (typeof templateOrClasses === 'string') {
     el.innerHTML = templateOrClasses
   } else {
-    el.classList.add(...templateOrClasses)
+    addClasses(templateOrClasses)
   }
 
   if (classes) {
-    el.classList.add(...classes)
+    addClasses(classes)
   }
 
   return el

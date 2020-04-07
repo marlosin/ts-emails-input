@@ -14,7 +14,7 @@ export class EmailChip {
   get styleClasses(): string[] {
     const classes = ['email-chip']
 
-    return this.isValid ? classes : classes.concat('email-chip--invalid')
+    return this.isValid ? ['email-chip'] : classes.concat('email-chip--invalid')
   }
 
   constructor (
