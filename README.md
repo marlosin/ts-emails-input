@@ -60,9 +60,9 @@ If you want to replace the e-mails inside your input, open browser's console:
 
 ```js
 // pass any e-mail address, it will replace only the first input's e-mails
-addEmailsInput(['some@email.com', 'someinvalidemail'])
+replaceEmails(['some@email.com', 'someinvalidemail'])
 
 // to replace any other input, you can pass its index in the second argument (starting in 0)
 // if the index is invalid, you'll not see changes in the app
-addEmailsInput(['some@email.com', 'someinvalidemail'], 1) // will replace the second input
+replaceEmails(['some@email.com', 'someinvalidemail'], 1) // will replace the second input
 ```
