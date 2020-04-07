@@ -38,6 +38,6 @@ export const q = <E extends Element>(context: string | HTMLElement, selector?: s
 /**
  * Creates an element to be used as browser's EventTarget
  */
-export function createEventTarget<T = unknown>(): CustomEventTarget<T> {
+export function createEventTarget<T>(): CustomEventTarget<T> {
   return new CustomEventTarget<T>()
 }

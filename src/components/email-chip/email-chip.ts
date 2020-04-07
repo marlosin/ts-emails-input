@@ -2,23 +2,27 @@ import './email-chip.sass'
 import template from './email-chip.html'
 import { createElement, q, createEventTarget, CustomEventData } from 'utils'
 import { EmailEvent, CustomEventListener } from 'types'
+import { ROOT_CLASS_NAME, ROOT_INVALID_CLASS_NAME, EmailChipStyles } from './email-chip.consts'
 
 export class EmailChip {
   private _element: HTMLElement
   get element(): HTMLElement { return this._element }
 
-  private _removeButton: HTMLElement
+  private _removeButton: HTMLButtonElement
+  get removeButton(): HTMLButtonElement { return this._removeButton }
 
   private _removeButtonListener: () => void
 
   get styleClasses(): string[] {
-    const classes = ['email-chip']
+    const classes = [ROOT_CLASS_NAME]
 
-    return this.isValid ? ['email-chip'] : classes.concat('email-chip--invalid')
+    return this.isValid ? classes : classes.concat(ROOT_INVALID_CLASS_NAME)
   }
 
+  readonly removeEvent = new CustomEventData(EmailEvent.REMOVE)
+
   constructor (
-    private readonly emailAddress: string,
+    readonly emailAddress: string,
     readonly isValid: boolean,
     private readonly eventTarget = createEventTarget()
   ) {
@@ -27,20 +31,20 @@ export class EmailChip {
 
   private addListeners(): void {
     this._removeButtonListener = (): void => {
-      this._removeButton.removeEventListener('click', this._removeButtonListener)
-      this._element.parentNode.removeChild(this._element)
+      this.removeButton.removeEventListener('click', this._removeButtonListener)
+      this.element.parentNode.removeChild(this.element)
       this._element = null
-      this.eventTarget.dispatchEvent(new CustomEventData(EmailEvent.REMOVE))
+      this.eventTarget.dispatchEvent(this.removeEvent)
     }
 
-    this._removeButton.addEventListener('click', this._removeButtonListener)
+    this.removeButton.addEventListener('click', this._removeButtonListener)
   }
 
   private createElement (): void {
     this._element = createElement('div', template, this.styleClasses)
-    this._removeButton = q(this._element, '.email-chip__remove-button')
+    this._removeButton = q(this._element, EmailChipStyles.removeButton)
 
-    q(this._element, '.email-chip__address').innerHTML = this.emailAddress
+    q(this._element, EmailChipStyles.emailLabel).innerHTML = this.emailAddress
     this.addListeners()
   }
 
@@ -54,6 +58,6 @@ export class EmailChip {
   }
 
   destroy(): void {
-    this._removeButton.dispatchEvent(new Event('click'))
+    this.removeButton.dispatchEvent(new Event('click'))
   }
 }

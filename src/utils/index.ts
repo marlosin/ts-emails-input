@@ -3,7 +3,7 @@ import { EmailEvent, CustomEventListener } from 'types'
 export * from './dom'
 export * from './email'
 
-export class CustomEventTarget<T> {
+export class CustomEventTarget<T = unknown> {
   readonly listeners: { [name: string]: Array<CustomEventListener<T>> } = {}
 
   addEventListener(eventName: EmailEvent, listener: CustomEventListener<T>): void {
