@@ -1,6 +1,6 @@
 import './email-chip.sass'
 import template from './email-chip.html'
-import { createElement, q, createEventTarget } from 'utils/dom'
+import { createElement, q, createEventTarget, CustomEventData } from 'utils'
 import { EmailEvent, CustomEventListener } from 'types'
 
 export class EmailChip {
@@ -30,7 +30,7 @@ export class EmailChip {
       this._removeButton.removeEventListener('click', this._removeButtonListener)
       this._element.parentNode.removeChild(this._element)
       this._element = null
-      this.eventTarget.dispatchEvent(new Event(EmailEvent.REMOVE))
+      this.eventTarget.dispatchEvent(new CustomEventData(EmailEvent.REMOVE))
     }
 
     this._removeButton.addEventListener('click', this._removeButtonListener)

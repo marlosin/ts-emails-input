@@ -19,7 +19,7 @@ export class EmailsInput {
 
     this.input.addEventListener(
       EmailEvent.ADD,
-      ({ detail: { email, isValid } }: CustomEvent<EmailAddEvent>) => {
+      ({ email, isValid }: EmailAddEvent) => {
         this.addEmail(email, isValid)
       },
     )
