@@ -30,6 +30,9 @@ npm start
 
 If the default port (`5000`) isn't being used, just go to http://localhost:5000 and enjoy, otherwise the console will display you the correct url.
 
+## Tests
+The task `npm run test` runs unit tests.
+
 ## Lint
 The task `npm run lint` runs ESLint script.
 
